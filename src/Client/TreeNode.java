@@ -90,6 +90,32 @@ public class TreeNode{
 		makeDataValueUpdate(root.right, level - 1);
 	}
 	
+	public static boolean isSameTree(Node root1, Node root2) {
+		if(root1 == null && root2 == null) return true;
+		if(root1 == null || root2 == null) return false;
+		
+		if(root1.data == root2.data && isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right)) return true;
+		
+		
+		return false;
+		
+	}
+	
+	public static void invertTree(Node root) {
+		if(root == null) return;
+		
+		swapTree(root);
+		invertTree(root.left);
+		invertTree(root.right);
+		
+	}
+	
+	public static void swapTree(Node root) {
+		Node temp = root.left;
+		root.left = root.right;
+		root.right = temp;
+	}
+	
 	public static void main(String[] args) {		
 		Node rootNode = new Node(16);
 		Node rootNode1 = new Node(1);
@@ -104,6 +130,22 @@ public class TreeNode{
 		rootNode2.left = rootNode3;
 		rootNode3.left = rootNode4;
 		
+		
+		// second Tree
+		Node root = new Node(16);
+		Node root1 = new Node(1);
+		Node root2 = new Node(2);
+		Node root3 = new Node(3);
+		Node root4 = new Node(4);
+		
+		
+		root.left = root2;
+		root.right = root1;
+		
+		root2.left = root3;
+		root3.left = root4;
+		
+		
 //		preOrder(rootNode);
 //		System.out.println();
 //		inOrder(rootNode);
@@ -114,12 +156,27 @@ public class TreeNode{
 //		System.out.println(heightOfTree(rootNode));
 		
 		int treeSize = sizeOfTree(rootNode);
-		System.out.println("Size of Tree ---> " + treeSize);
+//		System.out.println("Size of Tree ---> " + treeSize);
 		
 		int treeSum = sumOfTree(rootNode);
-		System.out.println("Sum of Tree is ---> " + treeSum);
+//		System.out.println("Sum of Tree is ---> " + treeSum);
 		
-		makeDataValueUpdate(rootNode, 1);
+//		makeDataValueUpdate(rootNode, 1);
+		
+		preOrder(rootNode);
+		System.out.println();
+		preOrder(root);
+		
+		
+		boolean isSame = isSameTree(rootNode, root);
+		
+		System.out.println();
+		
+		System.out.println("Is Tree Same or Not : " + isSame);
+		
+		invertTree(rootNode);
+		
+		System.out.println();
 		
 		preOrder(rootNode);
 		
