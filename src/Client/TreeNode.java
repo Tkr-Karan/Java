@@ -146,7 +146,8 @@ public class TreeNode{
 		Node rootNode1 = new Node(1);
 		Node rootNode2 = new Node(2);
 		Node rootNode3 = new Node(3);
-		Node rootNode4 = new Node(4);
+		Node rootNode4 = new Node(2);
+		
 		
 		
 		rootNode.left = rootNode2;
