@@ -1,5 +1,8 @@
 package Client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Node {
 	public int data;
 	public Node left;
@@ -35,11 +38,12 @@ public class TreeNode{
 		}
 	}
 	
-	public static void inOrder(Node root) {
+	public static void inOrder(Node root, List<Integer> al) {
 		if(root != null) {
-			inOrder(root.left);
+			inOrder(root.left, al);
 			System.out.print(root.data + " ");
-			inOrder(root.right);
+			al.add(root.data);
+			inOrder(root.right, al);
 		}
 	}
 	
@@ -116,6 +120,27 @@ public class TreeNode{
 		root.right = temp;
 	}
 	
+	public static boolean searchInBST(Node root, int target) {
+		if(root == null) return false;
+		
+		if(root.data == target) return true;
+		
+		if(root.data < target) return searchInBST(root.right, target);
+		else return searchInBST(root.left, target);
+		
+	}
+	
+	public static boolean isSorted(List<Integer> arr) {
+		if(arr == null || arr.size() <= 1) return true;
+	    
+	    for(int i = 0; i < arr.size() - 1; i++) {
+	        if(arr.get(i) > arr.get(i + 1)) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	
 	public static void main(String[] args) {		
 		Node rootNode = new Node(16);
 		Node rootNode1 = new Node(1);
@@ -125,10 +150,10 @@ public class TreeNode{
 		
 		
 		rootNode.left = rootNode2;
-		rootNode.right = rootNode1;
+		rootNode2.left = rootNode1;
 		
-		rootNode2.left = rootNode3;
-		rootNode3.left = rootNode4;
+		rootNode2.right = rootNode3;
+		rootNode3.right = rootNode4;
 		
 		
 		// second Tree
@@ -163,22 +188,38 @@ public class TreeNode{
 		
 //		makeDataValueUpdate(rootNode, 1);
 		
-		preOrder(rootNode);
+//		preOrder(rootNode);
+//		System.out.println();
+//		preOrder(root);
+//		
+//		
+//		boolean isSame = isSameTree(rootNode, root);
+//		
+//		System.out.println();
+//		
+//		System.out.println("Is Tree Same or Not : " + isSame);
+//		
+//		invertTree(rootNode);
+//		
+//		System.out.println();
+//		
+//		preOrder(rootNode);
+//		
+//		System.out.println();
+		
+		List<Integer> al = new ArrayList<>();
+		inOrder(rootNode, al);
+		
 		System.out.println();
-		preOrder(root);
 		
+		System.out.println(al);
 		
-		boolean isSame = isSameTree(rootNode, root);
+//		System.out.println(searchInBST(rootNode, 3));
 		
-		System.out.println();
+		boolean isSortedBST = isSorted(al);
 		
-		System.out.println("Is Tree Same or Not : " + isSame);
-		
-		invertTree(rootNode);
-		
-		System.out.println();
-		
-		preOrder(rootNode);
+		System.out.println("This BST is Sorted : " + isSortedBST);
+		System.out.println(searchInBST(rootNode, 3));
 		
 		
 	}
